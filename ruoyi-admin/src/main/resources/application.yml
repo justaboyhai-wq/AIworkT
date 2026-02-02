@@ -67,13 +67,13 @@ spring:
       enabled: true
   # redis 配置
   redis:
-    # 地址
-    host: localhost
+    # 地址 (请修改为远程服务器公网IP)
+    host: 8.130.80.74
     # 端口，默认为6379
     port: 6379
     # 数据库索引
     database: 0
-    # 密码
+    # 密码 (请在远程服务器设置密码后在此填入)
     password:
     # 连接超时时间
     timeout: 10s
