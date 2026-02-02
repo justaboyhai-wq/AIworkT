@@ -2,7 +2,8 @@
 
 .el-breadcrumb__inner,
 .el-breadcrumb__inner a {
-  font-weight: 400 !important;
+  font-weight: 500 !important;
+  color: #64748b !important;
 }
 
 .el-upload {
@@ -52,6 +53,8 @@
   left: 0;
   position: relative;
   margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 // refine element ui upload
@@ -68,6 +71,8 @@
 
 // dropdown
 .el-dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
   a {
     display: block
   }
@@ -89,4 +94,243 @@
   > .el-submenu__title
   .el-submenu__icon-arrow {
   display: none;
+}
+
+/* Modern Aesthetic Overrides */
+
+/* Cards */
+.el-card {
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .el-card__header {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 16px 20px;
+    font-weight: 600;
+    color: #1e293b;
+  }
+  
+  .el-card__body {
+    padding: 20px;
+  }
+}
+
+/* Buttons */
+.el-button {
+  border-radius: 6px; /* Slightly reduced radius for more professional look */
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 9px 16px; /* Standard padding */
+
+  /* Mini size specific adjustment */
+  &.el-button--mini {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  /* Primary Button (Create/Add) - Brand Blue */
+  &.el-button--primary {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+
+    &:hover, &:focus {
+      background-color: #2563eb;
+      border-color: #2563eb;
+      box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+      transform: translateY(-1px);
+    }
+    
+    &.is-plain {
+      background-color: #eff6ff;
+      border-color: #3b82f6;
+      color: #3b82f6;
+      box-shadow: none;
+      
+      &:hover, &:focus {
+        background-color: #3b82f6;
+        color: #ffffff;
+        border-color: #3b82f6;
+      }
+    }
+  }
+
+  /* Success Button (Edit/Update) - Emerald Green */
+  &.el-button--success {
+    background-color: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+    
+    &:hover, &:focus {
+      background-color: #059669;
+      border-color: #059669;
+      box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+      transform: translateY(-1px);
+    }
+
+    &.is-plain {
+      background-color: #ecfdf5;
+      border-color: #10b981;
+      color: #10b981;
+      box-shadow: none;
+
+      &:hover, &:focus {
+        background-color: #10b981;
+        color: #ffffff;
+        border-color: #10b981;
+      }
+    }
+  }
+
+  /* Danger Button (Delete) - Rose Red */
+  &.el-button--danger {
+    background-color: #f43f5e;
+    border-color: #f43f5e;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(244, 63, 94, 0.2);
+
+    &:hover, &:focus {
+      background-color: #e11d48;
+      border-color: #e11d48;
+      box-shadow: 0 4px 6px rgba(244, 63, 94, 0.3);
+      transform: translateY(-1px);
+    }
+
+    &.is-plain {
+      background-color: #fff1f2;
+      border-color: #f43f5e;
+      color: #f43f5e;
+      box-shadow: none;
+
+      &:hover, &:focus {
+        background-color: #f43f5e;
+        color: #ffffff;
+        border-color: #f43f5e;
+      }
+    }
+  }
+
+  /* Warning Button (Export) - Amber */
+  &.el-button--warning {
+    background-color: #f59e0b;
+    border-color: #f59e0b;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+
+    &:hover, &:focus {
+      background-color: #d97706;
+      border-color: #d97706;
+      box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+      transform: translateY(-1px);
+    }
+
+    &.is-plain {
+      background-color: #fffbeb;
+      border-color: #f59e0b;
+      color: #f59e0b;
+      box-shadow: none;
+
+      &:hover, &:focus {
+        background-color: #f59e0b;
+        color: #ffffff;
+        border-color: #f59e0b;
+      }
+    }
+  }
+  
+  /* Info/Default Button */
+  &.el-button--default {
+    border-color: #e2e8f0;
+    color: #64748b;
+    
+    &:hover, &:focus {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+      color: #3b82f6;
+    }
+  }
+  
+  /* Disabled State Override */
+  &.is-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none !important;
+    transform: none !important;
+    
+    /* Default plain disabled */
+    &.is-plain {
+      background-color: #f8fafc;
+      border-color: #e2e8f0;
+      color: #94a3b8;
+    }
+
+    /* Keep color hints for specific types when disabled */
+    &.el-button--primary.is-plain {
+      background-color: #eff6ff !important;
+      border-color: #bfdbfe !important;
+      color: #93c5fd !important;
+    }
+
+    &.el-button--success.is-plain {
+      background-color: #f0fdf4 !important;
+      border-color: #bbf7d0 !important;
+      color: #86efac !important;
+    }
+
+    &.el-button--danger.is-plain {
+      background-color: #fef2f2 !important;
+      border-color: #fecaca !important;
+      color: #fca5a5 !important;
+    }
+    
+    &.el-button--warning.is-plain {
+      background-color: #fffbeb !important;
+      border-color: #fde68a !important;
+      color: #fcd34d !important;
+    }
+  }
+}
+
+/* Inputs */
+.el-input__inner {
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 10px 15px;
+  
+  &:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+}
+
+/* Tables */
+.el-table {
+  border-radius: 8px;
+  overflow: hidden;
+  
+  th {
+    background-color: #f8fafc !important;
+    color: #475569;
+    font-weight: 600;
+  }
+  
+  td {
+    color: #334155;
+  }
+}
+
+/* Tags */
+.el-tag {
+  border-radius: 6px;
+  border: none;
+  padding: 0 10px;
 }

@@ -239,48 +239,60 @@ export default {
 
 <style lang="scss" scoped>
 .tags-view-container {
-  height: 34px;
+  height: 40px; /* Taller */
   width: 100%;
   background: #fff;
-  border-bottom: 1px solid #d8dce5;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+  border-bottom: 1px solid #f1f5f9;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .03);
+  
   .tags-view-wrapper {
     .tags-view-item {
       display: inline-block;
       position: relative;
       cursor: pointer;
-      height: 26px;
-      line-height: 26px;
-      border: 1px solid #d8dce5;
-      color: #495060;
+      height: 30px; /* Taller items */
+      line-height: 30px;
+      border: 1px solid #e2e8f0;
+      color: #64748b;
       background: #fff;
-      padding: 0 8px;
-      font-size: 12px;
-      margin-left: 5px;
-      margin-top: 4px;
+      padding: 0 12px;
+      font-size: 13px;
+      margin-left: 6px;
+      margin-top: 5px;
+      border-radius: 6px; /* Rounded corners */
+      transition: all 0.2s ease;
+      
       &:first-of-type {
         margin-left: 15px;
       }
       &:last-of-type {
         margin-right: 15px;
       }
+      &:hover {
+        background-color: #f8fafc;
+        color: #3b82f6;
+      }
       &.active {
-        background-color: #42b983;
+        background-color: #3b82f6; /* Modern blue */
         color: #fff;
-        border-color: #42b983;
+        border-color: #3b82f6;
+        box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+        
         &::before {
           content: '';
           background: #fff;
           display: inline-block;
-          width: 8px;
-          height: 8px;
+          width: 6px;
+          height: 6px;
           border-radius: 50%;
           position: relative;
-          margin-right: 2px;
+          margin-right: 6px;
+          vertical-align: middle;
         }
       }
     }
   }
+
 
   .tags-view-item.active.has-icon::before {
     content: none !important;

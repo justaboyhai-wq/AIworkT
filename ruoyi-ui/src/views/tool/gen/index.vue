@@ -88,6 +88,16 @@
           v-hasPermi="['tool:gen:remove']"
         >删除</el-button>
       </el-col>
+    <el-col :span="1.5">
+        <el-button
+          type="warning"
+          plain
+          icon="el-icon-data-line"
+          size="mini"
+          @click="openTableGraph"
+          v-hasPermi="['tool:gen:list']"
+        >关系图谱</el-button>
+      </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -166,6 +176,7 @@
     </el-dialog>
     <import-table ref="import" @ok="handleQuery" />
     <create-table ref="create" @ok="handleQuery" />
+    <table-graph ref="graph" />
   </div>
 </template>
 
@@ -173,6 +184,7 @@
 import { listTable, previewTable, delTable, genCode, synchDb } from "@/api/tool/gen"
 import importTable from "./importTable"
 import createTable from "./createTable"
+import TableGraph from "./TableGraph"
 import hljs from "highlight.js/lib/highlight"
 import "highlight.js/styles/github-gist.css"
 hljs.registerLanguage("java", require("highlight.js/lib/languages/java"))
@@ -184,7 +196,7 @@ hljs.registerLanguage("sql", require("highlight.js/lib/languages/sql"))
 
 export default {
   name: "Gen",
-  components: { importTable, createTable },
+  components: { importTable, createTable, TableGraph },
   data() {
     return {
       // 遮罩层
@@ -286,6 +298,10 @@ export default {
     /** 打开创建表弹窗 */
     openCreateTable() {
       this.$refs.create.show()
+    },
+    /** 打开关系图谱 */
+    openTableGraph() {
+      this.$refs.graph.show()
     },
     /** 重置按钮操作 */
     resetQuery() {

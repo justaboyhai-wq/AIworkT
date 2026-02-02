@@ -129,18 +129,17 @@ export default {
 }
 
 .navbar {
-  height: 50px;
+  height: 55px; /* Slightly taller */
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  box-shadow: 0 1px 4px rgba(0,21,41,.04); /* Softer shadow */
   display: flex;
   align-items: center;
-  // padding: 0 8px;
   box-sizing: border-box;
 
   .hamburger-container {
-    line-height: 46px;
+    line-height: 55px; /* Match navbar height */
     height: 100%;
     cursor: pointer;
     transition: background .3s;
@@ -149,6 +148,7 @@ export default {
     align-items: center;
     flex-shrink: 0;
     margin-right: 8px;
+    padding: 0 15px; /* Better hit area */
 
     &:hover {
       background: rgba(0, 0, 0, .025)

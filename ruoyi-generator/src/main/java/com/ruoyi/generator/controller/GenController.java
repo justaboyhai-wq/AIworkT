@@ -64,6 +64,97 @@ public class GenController extends BaseController
     }
 
     /**
+     * 获取数据表图谱数据
+     */
+    @PreAuthorize("@ss.hasPermi('tool:gen:list')")
+    @GetMapping("/graph")
+    public AjaxResult graph()
+    {
+        List<GenTable> tableList = genTableService.selectGenTableAll();
+        Map<String, Object> graph = new HashMap<>();
+        List<Map<String, Object>> nodes = new ArrayList<>();
+        List<Map<String, Object>> links = new ArrayList<>();
+
+        // Map to quick lookup table existence
+        Map<String, GenTable> tableMap = new HashMap<>();
+        for (GenTable table : tableList) {
+            tableMap.put(table.getTableName(), table);
+        }
+
+        for (GenTable table : tableList) {
+            Map<String, Object> node = new HashMap<>();
+            node.put("name", table.getTableName());
+            node.put("id", table.getTableName());
+            node.put("value", table.getTableComment());
+            node.put("category", 0);
+            nodes.add(node);
+
+            // 1. Explicit Sub-table relationship
+            if (StringUtils.isNotEmpty(table.getSubTableName())) {
+                Map<String, Object> link = new HashMap<>();
+                link.put("source", table.getTableName());
+                link.put("target", table.getSubTableName());
+                link.put("label", new HashMap<String, Object>() {{
+                    put("show", true);
+                    put("formatter", "Parent");
+                }});
+                links.add(link);
+            }
+
+            // 2. Infer relationships from columns
+            // Performance note: In a production env with 100s of tables, this N+1 query is bad.
+            // But for a tool/generator which typically handles <100 managed tables, it's acceptable.
+            List<GenTableColumn> columns = genTableColumnService.selectGenTableColumnListByTableId(table.getTableId());
+            for (GenTableColumn col : columns) {
+                String colName = col.getColumnName();
+                if (colName.endsWith("_id")) {
+                    // Rule 1: user_id -> sys_user (Common RuoYi pattern)
+                    if (colName.equals("user_id") && tableMap.containsKey("sys_user")) {
+                        addLink(links, table.getTableName(), "sys_user", "user_id");
+                    }
+                    // Rule 2: dept_id -> sys_dept
+                    else if (colName.equals("dept_id") && tableMap.containsKey("sys_dept")) {
+                        addLink(links, table.getTableName(), "sys_dept", "dept_id");
+                    }
+                    // Rule 3: xxx_id -> xxx (Exact match)
+                    else {
+                        String potentialTable = colName.substring(0, colName.length() - 3);
+                        if (tableMap.containsKey(potentialTable)) {
+                            addLink(links, table.getTableName(), potentialTable, colName);
+                        }
+                    }
+                }
+            }
+        }
+
+        graph.put("nodes", nodes);
+        graph.put("links", links);
+        return success(graph);
+    }
+
+    private void addLink(List<Map<String, Object>> links, String source, String target, String label) {
+        // Avoid self-loops if not desired, though graph supports them
+        if (source.equals(target)) return;
+        
+        // Avoid duplicate links
+        for (Map<String, Object> link : links) {
+            if (link.get("source").equals(source) && link.get("target").equals(target) && label.equals(link.get("name"))) {
+                return;
+            }
+        }
+
+        Map<String, Object> link = new HashMap<>();
+        link.put("source", source);
+        link.put("target", target);
+        link.put("name", label); // Use 'name' for tooltip
+        link.put("label", new HashMap<String, Object>() {{
+            put("show", true);
+            put("formatter", label);
+        }});
+        links.add(link);
+    }
+
+    /**
      * 获取代码生成信息
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:query')")

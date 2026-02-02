@@ -17,6 +17,14 @@ export function listDbTable(query) {
   })
 }
 
+// 查询数据表图谱
+export function getGenGraph() {
+  return request({
+    url: '/tool/gen/graph',
+    method: 'get'
+  })
+}
+
 // 查询表详细信息
 export function getGenTable(tableId) {
   return request({
