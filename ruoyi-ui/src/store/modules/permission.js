@@ -55,6 +55,9 @@ const permission = {
 // 遍历后台传来的路由字符串，转换为组件对象
 function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
   return asyncRouterMap.filter(route => {
+    if (route.path === 'http://ruoyi.vip' || (route.meta && route.meta.title === '若依官网')) {
+      return false
+    }
     if (type && route.children) {
       route.children = filterChildren(route.children)
     }
